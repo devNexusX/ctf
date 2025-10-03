@@ -57,6 +57,59 @@ The tools search for these patterns:
 - MD5 hashes (32 hex chars)
 - SHA1 hashes (40 hex chars)
 
+## Cryptography Tools
+
+### 1. Encoding/Decoding Tools
+**File:** `scripts/encoding_tools.py`
+**Usage:** `python scripts/encoding_tools.py <text> -m <method> -o <operation>`
+
+Supports: Base64, Hex, URL, HTML, ROT13, Binary, ASCII, Morse code
+- Auto-detection: `python scripts/encoding_tools.py <text> -a`
+
+### 2. Classical Cipher Tools
+**File:** `scripts/classical_ciphers.py`
+**Usage:** `python scripts/classical_ciphers.py <text> -c <cipher> [options]`
+
+Supports: Caesar, Vigenère, Atbash, Substitution, Rail Fence, Playfair
+- Caesar bruteforce: `python scripts/classical_ciphers.py <text> -c caesar -b`
+- Frequency analysis: `python scripts/classical_ciphers.py <text> -f`
+
+### 3. Hash Analysis Tools
+**File:** `scripts/hash_tools.py`
+**Usage:** `python scripts/hash_tools.py <hash> [options]`
+
+Features: Hash identification, generation, dictionary attacks, bruteforce
+- Identify hash: `python scripts/hash_tools.py <hash> -i`
+- Dictionary attack: `python scripts/hash_tools.py <hash> -d md5`
+
+### 4. Modern Cryptography Tools
+**File:** `scripts/modern_crypto.py`
+**Usage:** `python scripts/modern_crypto.py [options]`
+
+Features: AES encryption/decryption, RSA operations, XOR analysis
+- AES encrypt: `python scripts/modern_crypto.py --aes-encrypt "text" "key"`
+- XOR bruteforce: `python scripts/modern_crypto.py --xor-bruteforce <hex>`
+- RSA attacks: `python scripts/modern_crypto.py --rsa-attack <n> <e>`
+
+### 5. Frequency Analysis
+**File:** `scripts/frequency_analysis.py`
+**Usage:** `python scripts/frequency_analysis.py <text> [options]`
+
+Features: Character frequency, substitution mapping, cipher type detection
+- Full report: `python scripts/frequency_analysis.py <text> -r`
+- Generate mapping: `python scripts/frequency_analysis.py <text> -m`
+
+### 6. Unified Crypto Analyzer
+**File:** `scripts/crypto_analyzer.py`
+**Usage:** `python scripts/crypto_analyzer.py <text>`
+
+Automatically tries multiple methods:
+- Encoding/decoding (base64, hex, etc.)
+- Classical ciphers (Caesar, Atbash, etc.)
+- XOR analysis
+- Hash cracking
+- Frequency analysis
+
 ## Additional Techniques to Try
 
 If automated tools don't find the flag:
@@ -69,7 +122,14 @@ If automated tools don't find the flag:
 
 ## Workflow
 
+### For Steganography:
 1. Place image in `images/` folder
 2. Run `python scripts/quick_flag_finder.py images/challenge.jpg`
 3. If successful, you'll see: 🚩 FLAG FOUND: flag{...}
 4. If not, run full analysis and manually inspect outputs
+
+### For Cryptography:
+1. Try the unified analyzer first: `python scripts/crypto_analyzer.py "encrypted_text"`
+2. If no flag found, use specific tools based on the challenge type
+3. For unknown cipher types, use frequency analysis
+4. For hash-like strings, try hash cracking tools
